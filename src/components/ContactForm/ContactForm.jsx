@@ -1,19 +1,15 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { nanoid } from "nanoid";
-
 import { useDispatch } from "react-redux";
-import { addContact } from "../../redux/contactsSlice";
+import { addContact } from "../../redux/contactsOps";
 
 import css from "./ContactForm.module.css";
-
 
 const ContactForm = () => {
   const dispatch = useDispatch();
 
   const handleSubmit = (values, actions) => {
-    const addIdContact = { id: nanoid(), ...values };
-    dispatch(addContact(addIdContact));
+    dispatch(addContact(values));
     actions.resetForm();
   };
 
@@ -28,7 +24,6 @@ const ContactForm = () => {
       .min(3, "Too Short!")
       .max(50, "Too Long!"),
   });
-
 
   return (
     <div className={css.addCont}>
